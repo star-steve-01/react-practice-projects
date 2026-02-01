@@ -1,7 +1,16 @@
+import { useState } from "react";
+import Sidebar from "./components/Sidebar.tsx";
+import { ActiveTabContext } from "./context/ActiveTabContext.tsx";
+
 function App() {
+
+  const [activeTab, setActiveTab] = useState(0);
+
   return(
     <>
-      <h1>Initial setup of todo_app</h1>
+      <ActiveTabContext value={{ activeTab, setActiveTab }}>
+        <Sidebar />
+      </ActiveTabContext>
     </>
   );
 }
