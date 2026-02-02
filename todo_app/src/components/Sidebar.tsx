@@ -6,12 +6,12 @@ function Sidebar() {
     <div id="sidebar-container">
       {/* title of sidebar */}
       <h5 className="my-4 ms-4">
-        <b><i className="bi bi-list-task"></i>&ensp;Task Manager</b>
+        <b><i className="bi bi-back"></i>&ensp;Task Manager</b>
       </h5>
 
       {/* add task btn */}
       <button id="add-task-btn" className="btn my-4 ms-4">
-        <i className="bi bi-patch-plus">&ensp;Add Task</i>
+        <b><i className="bi bi-patch-plus"></i>&ensp;Add Task</b>
       </button>
       <br></br>
 
