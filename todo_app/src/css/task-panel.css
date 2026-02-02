@@ -1,0 +1,52 @@
+#task-panel {
+    position: absolute;
+    left: 240px;
+}
+
+.task-widget {
+    width: 400px;
+    margin-bottom: 20px;
+    border: 1px solid black;
+}
+
+.completed-false-btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #555;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+}
+
+.completed-false-btn i {
+    opacity: 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.completed-false-btn:hover i {
+    opacity: 1;
+    transition: 0.2s ease;
+}
+
+.completed-true-btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: green;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+}
+
+.completed-true-btn i {
+    opacity: 1;
+    font-size: 16px;
+    color: white;
+}

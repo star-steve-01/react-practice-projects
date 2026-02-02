@@ -19,8 +19,49 @@
     >
     <title>todo_app</title>
   </head>
-  <body>
+  <body style="overflow-y: scroll;">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <!-- loads initial data to localStorage -->
+    <script>
+      const data = [
+        {
+          id: 1,
+          title: "Today example 1",
+          description: "Drink more water",
+          datetime: new Date(),
+          completed: true,
+          tags: ["today", "example", "water"]
+        },
+        {
+          id: 2,
+          title: "Today example 2",
+          description: "Use Linux more",
+          datetime: new Date(),
+          completed: false,
+          tags: ["today", "example", "linux"]
+        },
+        {
+          id: 3,
+          title: "Tomorrow example 2",
+          description: "Go grocery shopping",
+          datetime: (new Date()).setDate((new Date).getDate() + 1),
+          completed: false,
+          tags: ["tomorrow", "example", "shopping"]
+        },
+        {
+          id: 4,
+          title: "Tomorrow example 2",
+          description: "Drink more water again",
+          datetime: (new Date()).setDate((new Date).getDate() + 1),
+          completed: false,
+          tags: ["tomorrow", "example", "water"]
+        },
+      ];
+
+      if (localStorage.getItem("data") == null) {
+        localStorage.setItem("data", JSON.stringify(data));
+      }
+    </script>
   </body>
 </html>
