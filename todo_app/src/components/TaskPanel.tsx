@@ -1,7 +1,9 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import "../css/task-panel.css";
 import { ActiveTabContext } from "../context/ActiveTabContext";
 import TaskWidget from "./Task";
+import { LoadingStatusContext } from "../context/LoadingStatusContext";
+import Notification from "./Notification.tsx";
 
 type localStorageTask = {
   id: number,
@@ -15,6 +17,7 @@ type localStorageTask = {
 function TaskPanel() {
 
   const { activeTab } = useContext(ActiveTabContext);
+  const [loadingStatus, setLoadingStatus] = useState(false);
 
   const data: localStorageTask[] = JSON.parse(localStorage.getItem("data")!);
 
@@ -53,32 +56,36 @@ function TaskPanel() {
   const taskCount = filteredData.length;
 
   return(
-    <div id="task-panel">
-      {/* title section of task panel */}
-      <div className="my-4 ms-5">
-        <h5>
-          <b><i className={`bi bi-${panelIcon}`}></i>&ensp;{panelTitle}</b>
-        </h5>
-        <p className="text-muted">{taskCount} task{(taskCount > 0) ? "s" : ""}</p>
-      </div>
+    <LoadingStatusContext value={{ loadingStatus, setLoadingStatus }}>
+      <div id="task-panel">
+        {/* title section of task panel */}
+        <div className="my-4 ms-5">
+          <h5>
+            <b><i className={`bi bi-${panelIcon}`}></i>&ensp;{panelTitle}</b>
+          </h5>
+          <p className="text-muted">{taskCount} task{(taskCount > 0) ? "s" : ""}</p>
+        </div>
 
-      <div className="mt-4 ms-5">
-        {/* renders task component by each filter data task */}
-        {filteredData.map((task) => {
-          return(
-            <TaskWidget
-              key={task.id}
-              id={task.id}
-              title={task.title}
-              description={task.description}
-              datetime={task.datetime}
-              completed={task.completed}
-              tags={task.tags}
-            />
-          );
-        })}
+        <div className="mt-4 ms-5">
+          {/* renders task component by each filter data task */}
+          {filteredData.map((task) => {
+            return(
+              <TaskWidget
+                key={task.id}
+                id={task.id}
+                title={task.title}
+                description={task.description}
+                datetime={task.datetime}
+                completed={task.completed}
+                tags={task.tags}
+              />
+            );
+          })}
+          {/* sets loading status on loading */}
+          {loadingStatus ? <Notification message="Loading..." /> : <></>}
+        </div>
       </div>
-    </div>
+    </LoadingStatusContext>
   );
 }
 

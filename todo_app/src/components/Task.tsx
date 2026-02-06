@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { LoadingStatusContext } from "../context/LoadingStatusContext";
 
 type TaskProps = {
   id: number,
@@ -22,6 +23,7 @@ function TaskWidget(props: TaskProps) {
 
   const { id, title, description, datetime, completed } = props;
   const [btnCompleted, setBtnCompleted] = useState(completed);
+  const { setLoadingStatus } = useContext(LoadingStatusContext);
 
   const date = new Date(datetime);
 
@@ -37,16 +39,20 @@ function TaskWidget(props: TaskProps) {
 
   // edits localStorage on button toggle
   function toggleCompletedById(id: number) {
-    const tasks: localStorageTask[] = JSON.parse(localStorage.getItem("data")!);
-    const updatedTasks = tasks.map((task) => {
-      if (task.id == id) {
-        task.completed = !task.completed;
-      }
-      return task;
-    });
-    localStorage.setItem("data", JSON.stringify(updatedTasks));
-
-    setBtnCompleted(!btnCompleted);
+    setLoadingStatus(true);
+    setTimeout(() => {   
+      const tasks: localStorageTask[] = JSON.parse(localStorage.getItem("data")!);
+      const updatedTasks = tasks.map((task) => {
+        if (task.id == id) {
+          task.completed = !task.completed;
+        }
+        return task;
+      });
+      localStorage.setItem("data", JSON.stringify(updatedTasks));
+  
+      setBtnCompleted(!btnCompleted);
+      setLoadingStatus(false);
+    }, 500);
   }
 
   return(
