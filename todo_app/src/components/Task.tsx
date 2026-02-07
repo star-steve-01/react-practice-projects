@@ -72,11 +72,22 @@ function TaskWidget(props: TaskProps) {
             </button>
           </div>
           {/* main card snippet */}
-          <div className="col-10">
+          <div className="col-7">
             <h6 className="card-title">{title}</h6>
             <p className="card-text small">{description}</p>
             <p className="card-text small">
               <i className="bi bi-calendar"></i>&ensp;{formattedDatetime}
+            </p>
+          </div>
+
+          <div className="col-4">
+            <button className="btn btn-primary py-1">
+              <i className="bi bi-pen"></i>&ensp;Edit
+            </button>
+            <p style={{ position: "absolute", bottom: 0 }}>
+              <button className="btn btn-danger py-1">
+                <i className="bi bi-trash"></i>&ensp;Delete
+              </button>
             </p>
           </div>
         </div>
