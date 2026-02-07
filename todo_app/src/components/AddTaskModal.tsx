@@ -133,14 +133,15 @@ function AddTaskModal() {
                   <small className="form-text text-muted">
                     &ensp;Separate tags with comma and space ", "
                   </small>
-                  {/* TODO: fix multiple-deleting behaviour */}
                   <div className="mt-3">
-                    {tags.map((tag) => {
+                    {tags.map((tag, index) => {
                       return(
                         <button
+                          key={index}
+                          type="button"
                           className="btn btn-primary py-0 me-2"
                           onClick={() => {
-                            setTags(prev => prev.filter((_, i) => i !== i));
+                            setTags(prevTags => prevTags.filter((tagName) => tagName != tag));
                           }}
                         >
                           {tag}<i className="bi bi-x"></i>
