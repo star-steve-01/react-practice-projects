@@ -18,6 +18,7 @@ function TaskPanel() {
 
   const { activeTab } = useContext(ActiveTabContext);
   const [loadingStatus, setLoadingStatus] = useState(false);
+  const [searchString, setSearchString] = useState("");
 
   const data: localStorageTask[] = JSON.parse(localStorage.getItem("data")!);
 
@@ -52,7 +53,12 @@ function TaskPanel() {
   const panelTitle = panelTitlesArr[activeTab];
   const panelIcon = panelIconsArr[activeTab];
 
-  const filteredData = filterDataByActiveTab(data, activeTab);
+  const filteredByTab = filterDataByActiveTab(data, activeTab);
+
+  const filteredData = filteredByTab.filter(task =>
+    task.title.toLowerCase().includes(searchString.toLowerCase())
+  );
+
   const taskCount = filteredData.length;
 
   return(
@@ -65,6 +71,30 @@ function TaskPanel() {
           </h5>
           <p className="text-muted">{taskCount} task{(taskCount > 0) ? "s" : ""}</p>
         </div>
+
+        <div className="mt-4 ms-5">
+          <div className="row">
+            <div className="col-1 d-flex justify-content-center align-items-center">
+              &ensp;&ensp;<i className="bi bi-search"></i>
+            </div>
+            <div className="col-11">
+              <input
+                id="search-bar"
+                className="form-control me-2"
+                type="search" 
+                placeholder="Search"
+                aria-label="Search"
+                onChange={e => setSearchString(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+
+        {(taskCount != 0) ? (<></>) : (<>
+          <div className="mt-4 ms-5">
+            <h5>No matches for "{searchString}"</h5>
+          </div>
+        </>)}
 
         <div className="mt-4 ms-5">
           {/* renders task component by each filter data task */}
