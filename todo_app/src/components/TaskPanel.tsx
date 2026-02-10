@@ -19,6 +19,7 @@ function TaskPanel() {
   const { activeTab } = useContext(ActiveTabContext);
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [searchString, setSearchString] = useState("");
+  const [searchIsActive, setSearchIsActive] = useState(false);
 
   const data: localStorageTask[] = JSON.parse(localStorage.getItem("data")!);
 
@@ -85,15 +86,28 @@ function TaskPanel() {
                 type="search" 
                 placeholder="Search"
                 aria-label="Search"
-                onChange={e => setSearchString(e.target.value)}
+                onChange={e => {
+                  if (e.target.value == "") {
+                    setSearchIsActive(false);
+                  } else {
+                    setSearchIsActive(true);
+                  }
+                  setSearchString(e.target.value);
+                }}
               />
             </div>
           </div>
         </div>
 
-        {(taskCount != 0) ? (<></>) : (<>
+        {(!(taskCount == 0 && searchIsActive)) ? (<></>) : (<>
           <div id="no-match-text-container" className="mt-4 ms-5">
-            <h6>No matches for <b>"{searchString}"</b></h6>
+            <h6>No matches for <b>"{searchString}" ...</b></h6>
+          </div>
+        </>)}
+
+        {(!(taskCount == 0 && !searchIsActive)) ? (<></>) : (<>
+          <div id="no-match-text-container" className="mt-4 ms-5">
+            <h6>No tasks for <b>{panelTitle} ...</b></h6>
           </div>
         </>)}
 
