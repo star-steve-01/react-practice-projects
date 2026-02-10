@@ -61,6 +61,7 @@ function TaskPanel() {
 
   const taskCount = filteredData.length;
 
+
   return(
     <LoadingStatusContext value={{ loadingStatus, setLoadingStatus }}>
       <div id="task-panel">
@@ -91,8 +92,8 @@ function TaskPanel() {
         </div>
 
         {(taskCount != 0) ? (<></>) : (<>
-          <div className="mt-4 ms-5">
-            <h5>No matches for "{searchString}"</h5>
+          <div id="no-match-text-container" className="mt-4 ms-5">
+            <h6>No matches for <b>"{searchString}"</b></h6>
           </div>
         </>)}
 

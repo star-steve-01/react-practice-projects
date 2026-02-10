@@ -62,3 +62,8 @@
 #search-bar {
     width: 360px;
 }
+
+#no-match-text-container {
+    width: 300px;
+    overflow-wrap: break-word;
+}
