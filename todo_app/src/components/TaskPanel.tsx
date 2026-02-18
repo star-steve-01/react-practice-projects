@@ -84,7 +84,7 @@ function TaskPanel() {
                 id="search-bar"
                 className="form-control me-2"
                 type="search" 
-                placeholder="Search"
+                placeholder="Search by title"
                 aria-label="Search"
                 onChange={e => {
                   if (e.target.value == "") {
@@ -108,6 +108,12 @@ function TaskPanel() {
         {(!(taskCount == 0 && !searchIsActive)) ? (<></>) : (<>
           <div id="no-match-text-container" className="mt-4 ms-5">
             <h6>No tasks for <b>{panelTitle} ...</b></h6>
+          </div>
+        </>)}
+
+        {(!(taskCount > 0 && searchIsActive)) ? (<></>) : (<>
+          <div id="no-match-text-container" className="mt-4 ms-5">
+            <h6>{taskCount} task found.</h6>
           </div>
         </>)}
 
